@@ -1,0 +1,127 @@
+.sub-site{
+    width: 70%;
+    margin: 0 auto;
+}
+body{
+    background-color: #e0e0e0;
+}
+/*搜索按钮*/
+.logo_left{
+    float: left;
+    width: 10%;
+}
+.logo_left img{
+    width: 200px;
+}
+.search_real{
+    width: 50%;
+    margin: 10px auto;
+}
+.search_con{
+    height: 45px;
+    border: 2px solid red;
+}
+.search_input, .search_button{
+    float: left;
+}
+.search_input, .search_input input, .search_button, .search_button input{
+    width:100%;
+    height: 100%;
+}
+.search_input input, .search_button input{
+    border: none;
+}
+.search_input{
+    width: 80%;
+}
+.search_button{
+    width: 20%;
+}
+.search_button input{
+    background-color: red;
+    color: white;
+}
+.search_list{
+    clear: both;
+    margin: 5px auto;
+}
+.search_list a{
+    padding: 5px 10px;
+}
+
+/*banner*/
+.banner{
+    width: 100%;
+    margin: 0 auto;
+    /*position: relative;*/
+}
+.banner, .cate, #myCarousel, .carousel-inner .item img{
+    height: 450px;
+}
+.cate{
+    /*position: absolute;
+    left: 0px;
+    top: 0;
+    z-index: 1;*/
+    color: white;
+    background-color: black;
+    opacity: 0.5;
+    width: 12%;
+    /*height: 100%;*/
+    float: left;
+    text-align: center  ;
+}
+.cate a{
+    margin-left: 5px;
+}
+#myCarousel{
+    float: right;
+    width: 86%;
+}
+.carousel-inner img {
+    width: 100%;
+    /*height: 100%;*/
+}
+
+
+/*商品*/
+.content{
+    width: 100%;
+    margin: 0 auto;
+    clear: both;
+}
+.goods{
+   height: auto;
+}
+.good_list{
+    width: 100%;
+    margin: 20px auto;
+}
+.good_cate{
+    width: 100%;
+    height: 25px;
+    padding-left: 5px;
+    border-left: black 3px solid;
+    margin: 10px auto;
+}
+.good{
+    color: red;
+    text-align: center;
+    background-color: white;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.good:hover{
+    border: 1px solid red;
+    opacity: 0.8;
+}
+.good_title, .good_price{
+    padding-top: 5px;
+}
+.good_img img{
+    width: 100%;
+}
+.clear{
+    clear: both;
+}
+

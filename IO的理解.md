@@ -1,0 +1,37 @@
+## IO的理解
+### 文件对象
+文件基本信息（文件名，文件路径，文件大小）
+### 字节流
+- InputStream/OutputStream为抽象类
+- FileInputStream/FileOutputStream为文件字节流，通过byte读写
+### 字符流
+- FileReader/FileWriter通过char读写
+### 缓存流
+通过不同的reader/writer处理buffer
+- 字节缓存流
+- 字符缓存流
+### 数据流
+- 序列化java基本类型数据
+- 只能读取通过数据流写入的数据
+- 读取数据需要注意顺序
+### 对象流
+- 序列化java对象数据
+- 只能读取通过对象流写入的数据
+### 标准输入
+- System.in为标准输入流对象
+- Scanner可以处理换行输入数据
+### 关闭流
+- 在try中关闭流，出现异常时，会跳过close
+- 在finally中关闭流，代码繁琐
+- 在try()创建流，会自动关闭
+### 字节流与字符流
+- char为16bit，表示unicode(0~65535)字符
+- byte为8bit
+### 文件路径问题
+- 默认为项目根目录，不可靠
+- 通过当前类的classloader获取
+- filepath也属于一种url，中文路径需要urldecode
+### 总结
+- 继承inputStream/outputStream的，为真正意义上的流
+- 继承reader/writer的，为流的处理方式，内部创建了流，解决编码问题
+- 继承buffer的，为流的处理方式，使用外部传入的流，解决IO频繁问题

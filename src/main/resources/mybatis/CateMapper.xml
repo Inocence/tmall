@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiyu.tmall.mapper.CateMapper">
+    <select id="getAll" resultType="Cate">
+            SELECT * FROM cate;
+    </select>
+    <select id="getSearch" resultType="Cate">
+        SELECT * FROM cate
+        <where>
+            <if test="cateIds!=null">
+                AND cate_id in
+                <foreach item="item" index="index" collection="cateIds" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="cateId!=0">
+                AND cate_id = #{cateId}
+            </if>
+        </where>
+        <if test="total!=0">
+            LIMIT #{total}
+        </if>
+    </select>
+</mapper>

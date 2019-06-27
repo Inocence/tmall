@@ -1,0 +1,51 @@
+.sub-site{
+    width: 55%;
+    margin: 0 auto;
+}
+/*搜索按钮*/
+.search{
+    width: 100%;
+}
+.logo_left{
+    float: left;
+    width: 10%;
+}
+.logo_left img{
+    width: 200px;
+}
+.search_real{
+    width: 50%;
+    margin: 10px auto;
+    float: right;
+}
+.search_con{
+    height: 40px;
+    border: 2px solid red;
+}
+.search_input, .search_button{
+    float: left;
+}
+.search_input, .search_input input, .search_button, .search_button input{
+    width:100%;
+    height: 100%;
+}
+.search_input input, .search_button input{
+    border: none;
+}
+.search_input{
+    width: 80%;
+}
+.search_button{
+    width: 20%;
+}
+.search_button input{
+    background-color: red;
+    color: white;
+}
+.search_list{
+    clear: both;
+    margin: 5px auto;
+}
+.search_list a{
+    padding: 5px 10px;
+}

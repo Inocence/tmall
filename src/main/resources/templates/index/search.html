@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{::link},~{})">
+    <title>搜索结果</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" />
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+        <!--搜索-->
+        <div th:include="template/include::search" class="search"></div>
+        <!--内容主体-->
+        <div class="content container">
+            <div class="goods row">
+                <a th:href="@{'/goods/' + ${s.getGoodsId()}}" th:each="s : ${search}">
+                    <div class="good col-lg-2 col-md-2">
+                        <div class="good_img"><img th:src="${s.getCover()}" /></div>
+                        <div class="good_title" th:text="${s.getName()}"></div>
+                        <div class="good_price" th:text="'￥' + ${s.getPrice()}"></div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+</body>
+</html>

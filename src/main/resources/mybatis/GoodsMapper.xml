@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiyu.tmall.mapper.GoodsMapper">
+    <select id="getOne" resultType="Goods">
+            SELECT * FROM goods WHERE goods_id = #{goods_id};
+    </select>
+    <select id="getList" resultType="Goods">
+            SELECT * FROM goods;
+    </select>
+    <select id="getSearch" resultType="Goods">
+            SELECT * FROM goods
+            <where>
+              <if test="cateIds!=null">
+                AND cate_id in
+                  <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                      #{item}
+                  </foreach>
+              </if>
+                <if test="cateId!=0">
+                    AND cate_id = #{cateId}
+                </if>
+                <if test="name!=null">
+                    AND name like concat('%', #{name}, '%')
+                </if>
+
+            </where>
+            <if test="total!=0">
+                LIMIT #{total}
+            </if>
+    </select>
+</mapper>

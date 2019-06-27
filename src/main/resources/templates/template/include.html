@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="top(title,links,styles)">
+    <title th:replace="${title}">Tmall</title>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.mini.css}" />
+    <script type="application/javascript" th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+    <script type="application/javascript" th:src="@{/static/js/bootstrap.mini.js}"></script>-->
+    <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}" />
+    <th:block th:replace="${links}" />
+    <th:block th:replace="${styles}" />
+</head>
+<div th:fragment="header">
+    <div class="header_left">
+        <ul class="float_ul"><li><a th:href="@{/}">logo</a></li><li>欢迎</li><li><a href="#">请登录</a></li><li><a href="#">免费注册</a></li></ul>
+    </div>
+    <div class="header_right">
+        <ul>
+            <li><span class="glyphicon glyphicon-align-left"></span><a href="#">我的订单</a></li><li><span class="glyphicon glyphicon-shopping-cart"><a href="/cart">购物车</a></li></ul>
+    </div>
+</div>
+<div th:fragment="search">
+    <div class="logo_left">
+        <img th:src="@{/static/img/logo.png}" />
+    </div>
+    <div class="search_real">
+        <div>
+            <form method="get" action="/search" class="search_con">
+                <div class="search_input"><input type="text" name="keyword" placeholder="搜索 商品"/></div>
+                <div class="search_button"><input type="submit" value="搜索" /></div>
+            </form>
+        </div>
+
+        <div class="search_list"><a href="/search?cateId=2">图书音像</a><a href="/search?cateId=3">户外运动</a></div>
+    </div>
+</div>
+<footer th:fragment="footer">
+    <div class="footer">
+        <div class="footer_top">
+            <!--<div><img th:src="@{/static/}"/></div>
+            <div><img th:src="@{/static/}"/></div>
+            <div><img th:src="@{/static/}"/></div>-->
+        </div>
+        <div class="footer_middle">
+            <div class="advice"><ul><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">免费注册</a></li></ul></div>
+            <div class="advice"><ul><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">免费注册</a></li></ul></div>
+            <div class="advice"><ul><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">免费注册</a></li></ul></div>
+            <div class="advice"><ul><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">购物指南</a></li><li><a href="#">免费注册</a></li></ul></div>
+
+        </div>
+        <div class="footer_bottom">
+            <ul class="float_ul"><li>关于我们</li><li>联系我们</li></ul>
+            <ul class="float_ul">
+                <li>© 2015-2020</li>
+                <li>All Rights Reserved. 蜀ICP备00000号</li>
+                <li><a href="#">友情链接</a></li>
+                <li><a href="#">JAVA练习题</a></li>
+                <li><a href="#">JAVA 教程</a></li>
+                <li><a href="#">关于本站</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

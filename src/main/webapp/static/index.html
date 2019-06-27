@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{::link},~{})">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" />
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+        <!--搜索-->
+        <div class="search">
+            <!--<div class="logo"><img th:src="@{/static/}" /></div>-->
+            <div class="search_real">
+                <div class="search_con">
+                    <div class="search_input"><input type="text" id="search"/></div>
+                    <div class="search_button"><input type="button" value="搜索" /></div>
+                </div>
+
+                <div class="search_list"><span class="glyphicon glyphicon-briefcase"></span><a href="#">图书文娱</a><a href="#">精选好物</a></div>
+            </div>
+        </div>
+        <!--banner-->
+        <div class="banner">
+            <div class="cate">
+                <ul class="float_ul">
+                    <li><span class="glyphicon glyphicon-search" aria-hidden="true"></span><a href="#">aaaaaaaaaa</a></li>
+                    <li><a href="#">aaaaaaaaaa</a></li>
+                    <li><a href="#">aaaaaaaaaa</a></li>
+                    <li><a href="#">aaaaaaaaaa</a></li>
+                </ul>
+            </div>
+            <div id="demo" class="carousel slide" data-ride="carousel">
+                <!-- 指示符 -->
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+
+                <!-- 轮播图片 -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://static.runoob.com/images/mix/img_fjords_wide.jpg">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://static.runoob.com/images/mix/img_nature_wide.jpg">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg">
+                    </div>
+                </div>
+
+                <!-- 左右切换按钮 -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
+        <!--内容主体-->
+        <div class="content">
+            <div class="goods">
+                <div class="good">
+                    <div class="good_title">啊</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+</body>
+</html>
