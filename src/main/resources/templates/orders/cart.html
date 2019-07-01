@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{::link},~{})">
+    <title>购物车</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/top_search.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/cart.css}" />
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+        <!--搜索-->
+        <div th:include="template/include::search" class="search"></div>
+        <!--内容主体-->
+        <div class="content">
+            <form action="/book" method="post" id="submitForm">
+                <table>
+                    <thead>
+                    <tr>
+                        <td width="20">
+                            <input type="checkbox" onclick="selectAll(this.checked)" name_check="head"/>全选
+                        </td>
+                        <td width="5%">商品图片</td><td width="35%">商品信息</td><td width="10%">单价</td><td width="10%">数量</td><td width="10%">操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c,s : ${carts}">
+                        <td>
+                            <input type="checkbox" name_check="check" />
+                            <input type="hidden" th:name="${'carts['+s.index+'].cartId'}" th:value="${c.getCartId()}" />
+                        </td>
+                        <td>
+                            <div class="table_img">
+                                <img th:src="${c.getGoods().getCover()}" />
+                            </div>
+                        </td>
+                        <td th:text="${c.getGoods().getName()}"></td>
+                        <td th:text="${'￥' + c.getGoods().getPrice()}" th:value="${c.getGoods().getPrice()}"></td>
+                        <td><input class="table_num" type="text" th:name="${'carts['+s.index+'].num'}" th:value="${c.getNum()}" /></td>
+                        <td><a th:href="@{'/cartDel?cartId=' + ${c.getCartId()}}" class="del">删除</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="table_bot">
+                    <div class="bot_right">
+                        <input type="hidden" value="0" class="total_num" />
+                        <input type="hidden" value="0" class="total_price" />
+                        <span>已选商品<span class="total_num">0</span>件&nbsp;合计(不含运费)：<span class="total_price">￥0</span></span>
+                        <input class="total_submit" type="submit" value="结算" id="submitBtn" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+<script>
+    $(function () {
+        $("input[type='checkbox']").each(function(i,n){
+            $(this).on('click', function () {
+                var total_price = 0;
+                var total_num = 0;
+
+                $("input[name_check='check']").each(function(i,n){
+                    if(n.checked == true) {
+                        var temp_price = parseInt($(this).parent().next().next().next().attr('value'));
+                        var temp_num = parseInt($(this).parent().next().next().next().next().children().val());
+
+                        total_num = total_num + temp_num;
+                        total_price = total_price + temp_price * temp_num;
+                    }
+                });
+
+                $('.total_num').text(total_num);
+                $('.total_price').text('￥' + total_price);
+                total_price = 0;
+                total_num = 0;
+            })
+        });
+        /*$('#submitBtn').on('click', function(){
+            var AjaxURL= "/book";
+            console.log($('#submitForm').serialize());
+            $.ajax({
+                type: "POST",
+                url: AjaxURL,
+                data: $('#submitForm').serialize(),
+                success: function (data) {
+                    alert(data.msg);
+                },
+                error: function(data) {
+                    alert(data.msg);
+                }
+            });
+        });*/
+    });
+    function selectAll(selectStatus){//传入参数（全选框的选中状态）
+        //根据name属性获取到单选框的input，使用each方法循环设置所有单选框的选中状态
+        if(selectStatus){
+            $("input[name_check='check']").each(function(i,n){
+                n.checked = true;
+            });
+        }else{
+            $("input[name_check='check']").each(function(i,n){
+                n.checked = false;
+            });
+        }
+    }
+</script>
+</body>
+</html>

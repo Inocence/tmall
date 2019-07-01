@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{::link},~{})">
+    <title>结算订单</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/top_search.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/alipay.css}" />
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+        <!--搜索-->
+        <div th:include="template/include::search" class="search"></div>
+        <!--内容主体-->
+        <div class="content">
+            <div class="alipay">
+                <form action="/alipay" method="post" id="submitForm" >
+                    <input type="hidden" th:value="${orders.getOrdersId()}" name="ordersId" />
+                    <div class="price">
+                        <p>扫一扫付款</p>
+                        <p class="price_money" th:text="${'￥' + orders.getPrice()}"></p>
+                    </div>
+                    <div class="img">
+                        <img th:src="@{/static/img/alipay.png}" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">确认支付</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+<script>
+
+</script>
+</body>
+</html>

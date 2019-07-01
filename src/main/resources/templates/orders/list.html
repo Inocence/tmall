@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{::link},~{})">
+    <title>结算订单</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/top_search.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/orders_list.css}" />
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+        <!--搜索-->
+        <div th:include="template/include::search" class="search"></div>
+        <!--内容主体-->
+        <div class="content">
+            <!--订单列表-->
+            <div class="list">
+                <!-- 选项卡菜单-->
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#bulletin" role="tab" data-toggle="tab">所有订单</a></li>
+                    <li><a href="#rule" role="tab" data-toggle="tab">待付款</a></li>
+                    <li><a href="#forum" role="tab" data-toggle="tab">待评价</a></li>
+                </ul>
+                <!-- 选项卡面板 -->
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active" id="bulletin">
+                        <table class="common_table" th:each="p : ${all}">
+                            <thead>
+                                <tr>
+                                    <td width="10" class="order_number" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
+                                    <td width="50"></td>
+                                    <td width="10"></td>
+                                    <td width="10"></td>
+                                    <td width="10"></td>
+                                    <td width="10"><span class="glyphicon glyphicon-trash"></span></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="table_img">
+                                            <img th:src="${p.getGoods().getCover()}" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span th:text="${p.getGoods().getName()}"></span>
+                                    </td>
+                                    <td th:text="${p.getPrice()}"></td>
+                                    <td th:text="${p.getNum()}"></td>
+                                    <td th:text="${p.getPrice() * p.getNum()}"></td>
+                                    <td><button class="btn btn-primary">操作</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane " id="rule">
+                        <table class="common_table" th:each="p : ${unpay}">
+                            <thead>
+                            <tr>
+                                <td width="10" class="order_number" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
+                                <td width="50"></td>
+                                <td width="10"></td>
+                                <td width="10"></td>
+                                <td width="10"></td>
+                                <td width="10"><span class="glyphicon glyphicon-trash"></span></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="table_img">
+                                        <img th:src="${p.getGoods().getCover()}" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <span th:text="${p.getGoods().getName()}"></span>
+                                </td>
+                                <td th:text="${p.getPrice()}"></td>
+                                <td th:text="${p.getNum()}"></td>
+                                <td th:text="${p.getPrice() * p.getNum()}"></td>
+                                <td><button class="btn btn-primary">操作</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane " id="forum">
+                        <table class="common_table" th:each="p : ${uncomment}">
+                            <thead>
+                            <tr>
+                                <td width="10" class="order_number" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
+                                <td width="50"></td>
+                                <td width="10"></td>
+                                <td width="10"></td>
+                                <td width="10"></td>
+                                <td width="10"><span class="glyphicon glyphicon-trash"></span></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="table_img">
+                                        <img th:src="${p.getGoods().getCover()}" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <span th:text="${p.getGoods().getName()}"></span>
+                                </td>
+                                <td th:text="${p.getPrice()}"></td>
+                                <td th:text="${p.getNum()}"></td>
+                                <td th:text="${p.getPrice() * p.getNum()}"></td>
+                                <td><button class="btn btn-primary">操作</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+<script>
+
+</script>
+</body>
+</html>

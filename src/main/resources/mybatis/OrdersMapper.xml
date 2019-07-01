@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiyu.tmall.mapper.OrdersMapper">
+    <select id="getOne" resultType="Orders">
+            SELECT * FROM orders WHERE orders_id = #{ordersId};
+    </select>
+    <select id="getAll" resultType="Orders">
+            SELECT * FROM orders ORDER BY orders_id DESC;
+    </select>
+    <update id="update" parameterType="Orders">
+        UPDATE orders
+        <set>
+            <if test="status!=0">
+                status = #{status},
+            </if>
+            <if test="payTime!=null">
+                pay_time = #{payTime},
+            </if>
+        </set>
+        <where>
+            orders_id = #{ordersId}
+        </where>
+    </update>
+    <insert id="insert" parameterType="Orders" useGeneratedKeys="true" keyProperty="ordersId" keyColumn="orders_id">
+        INSERT INTO
+        orders(user_id,number,address,name,mobile,comment,price,status,pay_time,status_time,create_time)
+         VALUES(#{userId}, #{number}, #{address}, #{name}, #{mobile}, #{comment}, #{price}, #{status}, #{payTime}, #{statusTime}, #{createTime});
+    </insert>
+    <select id="getSearch" resultType="Orders">
+        SELECT * FROM orders
+        <where>
+            <if test="status!=0">
+                and status = #{status}
+            </if>
+        </where>
+        ORDER BY status_time DESC;
+    </select>
+</mapper>

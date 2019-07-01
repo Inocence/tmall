@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface GoodsMapper {
-    Goods getOne(int goods_id);
+    Goods getOne(int goodsId);
     List<Goods> getList(Goods goods);
     List<Goods> getSearch(SearchGoodsItem igi);
 }

@@ -6,6 +6,7 @@ import com.baiyu.tmall.mapper.GoodsMapper;
 import com.baiyu.tmall.pojo.Cart;
 import com.baiyu.tmall.pojo.Cate;
 import com.baiyu.tmall.pojo.Goods;
+import com.baiyu.tmall.pojo.item.SearchCartItem;
 import com.baiyu.tmall.pojo.item.SearchCatesItem;
 import com.baiyu.tmall.pojo.item.SearchGoodsItem;
 import com.baiyu.tmall.service.CartService;
@@ -29,7 +30,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<Cart> getAll(){
         List<Cart> carts = cartMapper.getAll();
+        return conCarts(carts);
+    }
 
+    private List<Cart> conCarts(List<Cart> carts) {
         //查询商品
         List<Integer> goodsIds = carts.stream().map(Cart::getGoodsId).collect(Collectors.toList());
         SearchGoodsItem sgi = new SearchGoodsItem();
@@ -54,5 +58,16 @@ public class CartServiceImpl implements CartService {
     @Override
     public void delete(Cart cart){
         cartMapper.delete(cart);
+    }
+
+    @Override
+    public void update(Cart cart){
+        cartMapper.update(cart);
+    }
+
+    @Override
+    public List<Cart> getSearch(SearchCartItem sci){
+        List<Cart> carts = cartMapper.getSearch(sci);
+        return conCarts(carts);
     }
 }

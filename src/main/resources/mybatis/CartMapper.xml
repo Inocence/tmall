@@ -9,7 +9,28 @@
     <insert id="insert" parameterType="Cart" keyProperty="cartId">
         INSERT INTO cart(cart_id,goods_id,user_id,num,create_time) VALUES(null, #{goodsId}, #{userId}, #{num}, #{createTime});
     </insert>
+    <update id="update" parameterType="Cart">
+        UPDATE cart
+        <set>
+            num = #{num}
+        </set>
+        <where>
+            cart_id = #{cartId}
+        </where>
+    </update>
     <delete id="delete" parameterType="Cart">
         DELETE FROM cart WHERE cart_id = #{cartId}
     </delete>
+    <select id="getSearch" resultType="Cart">
+        SELECT * FROM cart
+        <where>
+            <if test="cartIds!=null">
+                and cart_id in
+                <foreach collection="cartIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY cart_id DESC;
+    </select>
 </mapper>

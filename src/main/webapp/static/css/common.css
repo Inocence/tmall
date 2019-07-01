@@ -23,13 +23,14 @@ ul{
 }
 .header_left, .header_right{
     width: 40%;
+    height: 100%;
+    line-height: 100%;
 }
 .header_left, .header_left ul li{
     float: left;
 }
 .header_left ul li, .header_right ul li{
     padding: 5px 10px;
-    line-height: 100%;
 }
 .header_right, .header_right ul li{
     float: right;

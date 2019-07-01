@@ -9,3 +9,9 @@ mybatis:
   type-aliases-package: com.baiyu.tmall.pojo
   configuration:
     map-underscore-to-camel-case: true
+logging:
+  level:
+    com:
+      baiyu:
+        tmall:
+          mapper: debug
