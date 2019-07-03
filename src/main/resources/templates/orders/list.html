@@ -26,91 +26,136 @@
                 <!-- 选项卡面板 -->
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active" id="bulletin">
+                        <table class="common_table">
+                            <thead>
+                            <tr>
+                                <td width="10" class="first_col" >宝贝</td>
+                                <td width="50" class="second_col">描述</td>
+                                <td width="10" class="third_col">单价</td>
+                                <td width="10" class="four_col">数量</td>
+                                <td width="10" class="five_col">总价</td>
+                                <td width="10" class="six_col">操作</td>
+                            </tr>
+                            </thead>
+                        </table>
                         <table class="common_table" th:each="p : ${all}">
                             <thead>
                                 <tr>
-                                    <td width="10" class="order_number" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
-                                    <td width="50"></td>
-                                    <td width="10"></td>
-                                    <td width="10"></td>
-                                    <td width="10"></td>
-                                    <td width="10"><span class="glyphicon glyphicon-trash"></span></td>
+                                    <td class="first_col" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
+                                    <td class="second_col"></td>
+                                    <td class="third_col"></td>
+                                    <td class="four_col"></td>
+                                    <td class="five_col"></td>
+                                    <td class="six_col">
+                                        <a th:if="${p.getOrders().getStatus() == 1}" th:href="${'/orders/' + p.getOrders().getOrdersId()}" class="btn btn-primary">付款</a>
+                                        <a th:href="${'/ordersDel/' + p.getOrders().getOrdersId()}" class="btn btn-danger">删除</a>
+                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
+                                <tr th:each="o : ${p.getItem()}">
+                                    <td class="first_col">
                                         <div class="table_img">
-                                            <img th:src="${p.getGoods().getCover()}" />
+                                            <img th:src="${o.getGoods().getCover()}" />
                                         </div>
                                     </td>
-                                    <td>
-                                        <span th:text="${p.getGoods().getName()}"></span>
+                                    <td class="second_col">
+                                        <span th:text="${o.getGoods().getName()}"></span>
                                     </td>
-                                    <td th:text="${p.getPrice()}"></td>
-                                    <td th:text="${p.getNum()}"></td>
-                                    <td th:text="${p.getPrice() * p.getNum()}"></td>
-                                    <td><button class="btn btn-primary">操作</button></td>
+                                    <td class="third_col" th:text="${'￥' + o.getPrice()}"></td>
+                                    <td class="four_col" th:text="${o.getNum()}"></td>
+                                    <td class="five_col" th:text="${'￥' + o.getPrice() * o.getNum()}"></td>
+                                    <td class="six_col"><a th:if="${o.getStatus() == 2}" th:href="${'/goodsComment/' + o.getItemId()}" class="btn btn-primary">评价</a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="tab-pane " id="rule">
+                        <table class="common_table">
+                            <thead>
+                            <tr>
+                                <td width="10" class="first_col" >宝贝</td>
+                                <td width="50" class="second_col">描述</td>
+                                <td width="10" class="third_col">单价</td>
+                                <td width="10" class="four_col">数量</td>
+                                <td width="10" class="five_col">总价</td>
+                                <td width="10" class="six_col">操作</td>
+                            </tr>
+                            </thead>
+                        </table>
                         <table class="common_table" th:each="p : ${unpay}">
                             <thead>
                             <tr>
-                                <td width="10" class="order_number" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
-                                <td width="50"></td>
-                                <td width="10"></td>
-                                <td width="10"></td>
-                                <td width="10"></td>
-                                <td width="10"><span class="glyphicon glyphicon-trash"></span></td>
+                                <td class="first_col" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
+                                <td class="second_col"></td>
+                                <td class="third_col"></td>
+                                <td class="four_col"></td>
+                                <td class="five_col"></td>
+                                <td class="six_col">
+                                    <a th:if="${p.getOrders().getStatus() == 1}" th:href="${'/orders/' + p.getOrders().getOrdersId()}" class="btn btn-primary">付款</a>
+                                    <a th:href="${'/ordersDel/' + p.getOrders().getOrdersId()}" class="btn btn-danger">删除</a>
+                                </td>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
+                            <tr th:each="o : ${p.getItem()}">
+                                <td class="first_col">
                                     <div class="table_img">
-                                        <img th:src="${p.getGoods().getCover()}" />
+                                        <img th:src="${o.getGoods().getCover()}" />
                                     </div>
                                 </td>
-                                <td>
-                                    <span th:text="${p.getGoods().getName()}"></span>
+                                <td class="second_col">
+                                    <span th:text="${o.getGoods().getName()}"></span>
                                 </td>
-                                <td th:text="${p.getPrice()}"></td>
-                                <td th:text="${p.getNum()}"></td>
-                                <td th:text="${p.getPrice() * p.getNum()}"></td>
-                                <td><button class="btn btn-primary">操作</button></td>
+                                <td class="third_col" th:text="${'￥' + o.getPrice()}"></td>
+                                <td class="four_col" th:text="${o.getNum()}"></td>
+                                <td class="five_col" th:text="${'￥' + o.getPrice() * o.getNum()}"></td>
+                                <td class="six_col"><a th:if="${o.getStatus() == 2}" th:href="${'/goodsComment/' + o.getItemId()}" class="btn btn-primary">评价</a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="tab-pane " id="forum">
+                        <table class="common_table">
+                            <thead>
+                            <tr>
+                                <td width="10" class="first_col" >宝贝</td>
+                                <td width="50" class="second_col">描述</td>
+                                <td width="10" class="third_col">单价</td>
+                                <td width="10" class="four_col">数量</td>
+                                <td width="10" class="five_col">总价</td>
+                                <td width="10" class="six_col">操作</td>
+                            </tr>
+                            </thead>
+                        </table>
                         <table class="common_table" th:each="p : ${uncomment}">
                             <thead>
                             <tr>
-                                <td width="10" class="order_number" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
-                                <td width="50"></td>
-                                <td width="10"></td>
-                                <td width="10"></td>
-                                <td width="10"></td>
-                                <td width="10"><span class="glyphicon glyphicon-trash"></span></td>
+                                <td class="first_col" th:text="${'订单号' + p.getOrders().getNumber()}"></td>
+                                <td class="second_col"></td>
+                                <td class="third_col"></td>
+                                <td class="four_col"></td>
+                                <td class="five_col"></td>
+                                <td class="six_col">
+                                    <a th:if="${p.getOrders().getStatus() == 1}" th:href="${'/orders/' + p.getOrders().getOrdersId()}" class="btn btn-primary">付款</a>
+                                    <a th:href="${'/ordersDel/' + p.getOrders().getOrdersId()}" class="btn btn-danger">删除</a>
+                                </td>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
+                            <tr th:each="o : ${p.getItem()}">
+                                <td class="first_col">
                                     <div class="table_img">
-                                        <img th:src="${p.getGoods().getCover()}" />
+                                        <img th:src="${o.getGoods().getCover()}" />
                                     </div>
                                 </td>
-                                <td>
-                                    <span th:text="${p.getGoods().getName()}"></span>
+                                <td class="second_col">
+                                    <span th:text="${o.getGoods().getName()}"></span>
                                 </td>
-                                <td th:text="${p.getPrice()}"></td>
-                                <td th:text="${p.getNum()}"></td>
-                                <td th:text="${p.getPrice() * p.getNum()}"></td>
-                                <td><button class="btn btn-primary">操作</button></td>
+                                <td class="third_col" th:text="${'￥' + o.getPrice()}"></td>
+                                <td class="four_col" th:text="${o.getNum()}"></td>
+                                <td class="five_col" th:text="${'￥' + o.getPrice() * o.getNum()}"></td>
+                                <td class="six_col"><a th:if="${o.getStatus() == 2}" th:href="${'/goodsComment/' + o.getItemId()}" class="btn btn-primary">评价</a></td>
                             </tr>
                             </tbody>
                         </table>

@@ -9,6 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface ItemMapper {
+    Item getOne(int id);
     void insert(Item item);
+    void update(Item item);
     List<Item> getSearch(SearchItemItem sii);
+    int count(Item item);
 }

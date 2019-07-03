@@ -14,6 +14,7 @@ public class Item {
     private int userId;
     private int num;
     private int price;
+    private int status;
     private String createTime;
     private Goods goods;
     private Orders orders;

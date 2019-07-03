@@ -12,4 +12,5 @@ public interface OrdersMapper {
     Orders getOne(int id);
     void update(Orders orders);
     List<Orders> getSearch(Orders orders);
+    int count(Orders orders);
 }

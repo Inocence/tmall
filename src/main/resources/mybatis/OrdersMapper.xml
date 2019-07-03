@@ -6,6 +6,17 @@
     <select id="getOne" resultType="Orders">
             SELECT * FROM orders WHERE orders_id = #{ordersId};
     </select>
+    <select id="count" resultType="Integer">
+            SELECT count(*) FROM orders
+            <where>
+                <if test="ordersId!=0">
+                    orders_id = #{ordersId}
+                </if>
+                <if test="status!=0">
+                    status = #{status}
+                </if>
+            </where>
+    </select>
     <select id="getAll" resultType="Orders">
             SELECT * FROM orders ORDER BY orders_id DESC;
     </select>
@@ -14,6 +25,9 @@
         <set>
             <if test="status!=0">
                 status = #{status},
+            </if>
+            <if test="isDelete!=0">
+                is_delete = #{isDelete},
             </if>
             <if test="payTime!=null">
                 pay_time = #{payTime},
@@ -31,6 +45,7 @@
     <select id="getSearch" resultType="Orders">
         SELECT * FROM orders
         <where>
+            is_delete = 1
             <if test="status!=0">
                 and status = #{status}
             </if>

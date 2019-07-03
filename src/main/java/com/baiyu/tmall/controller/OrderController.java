@@ -1,13 +1,10 @@
 package com.baiyu.tmall.controller;
 
 import com.baiyu.tmall.mapper.ItemMapper;
-import com.baiyu.tmall.pojo.Cart;
-import com.baiyu.tmall.pojo.Item;
-import com.baiyu.tmall.pojo.Orders;
+import com.baiyu.tmall.pojo.*;
 import com.baiyu.tmall.pojo.item.SearchCartItem;
-import com.baiyu.tmall.service.CartService;
-import com.baiyu.tmall.service.ItemService;
-import com.baiyu.tmall.service.OrdersService;
+import com.baiyu.tmall.pojo.item.SearchOrdersItem;
+import com.baiyu.tmall.service.*;
 import com.baiyu.tmall.util.Result;
 import com.baiyu.tmall.util.Tool;
 import org.apache.ibatis.annotations.Param;
@@ -31,6 +28,12 @@ public class OrderController {
 
     @Autowired
     private ItemService itemService;
+
+    @Autowired
+    private GoodsService goodsService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/cart")
     public String cart(Model model) {
@@ -98,42 +101,70 @@ public class OrderController {
         return "redirect:/orders/" + ordersId;
     }
 
-    @GetMapping("orders/{id}")
+    @GetMapping("/orders/{id}")
     public String orders(@PathVariable("id") int id, Model model) {
         Orders orders = ordersService.getOne(id);
-        System.out.println(orders);
         model.addAttribute("orders", orders);
         return "orders/alipay";
     }
 
-    @PostMapping("alipay")
+    @GetMapping("/ordersDel/{id}")
+    public String ordersDel(@PathVariable("id") int id) {
+        Orders orders = new Orders();
+        orders.setOrdersId(id);
+        orders.setIsDelete(2);
+        ordersService.update(orders);
+        return "redirect:/ordersList";
+    }
+
+    @PostMapping("/alipay")
     public String alipay(Orders orders) {
         orders.setStatus(2);
         orders.setPayTime(Tool.timeFormat());
         orders.setStatusTime(Tool.timeFormat());
-        System.out.println(orders);
         ordersService.update(orders);
-        return "redirect:/cart";
+
+        Item item = new Item();
+        item.setStatus(2);
+        item.setOrdersId(orders.getOrdersId());
+        itemService.update(item);
+        return "redirect:/ordersList";
     }
 
-    @GetMapping("ordersList")
+    @GetMapping("/ordersList")
     public String list(Model model) {
         Orders all = new Orders();
         //all.setStatus(1);
-        List<Item> allList = itemService.getSearch(all);
+        List<SearchOrdersItem> allList = ordersService.getList(all);
 
         Orders unpay = new Orders();
         unpay.setStatus(1);
-        List<Item> unpayList = itemService.getSearch(unpay);
+        List<SearchOrdersItem> unpayList = ordersService.getList(unpay);
 
         Orders uncomment = new Orders();
         uncomment.setStatus(2);
-        List<Item> uncommentList = itemService.getSearch(uncomment);
+        List<SearchOrdersItem> uncommentList = ordersService.getList(uncomment);
 
         model.addAttribute("all", allList);
         model.addAttribute("unpay", unpayList);
         model.addAttribute("uncomment", uncommentList);
 
         return "orders/list";
+    }
+
+
+    @GetMapping("/goodsComment/{id}")
+    public String goodsComment(@PathVariable("id") int id, Model model) {
+        Item item = itemService.getOne(id);
+        Goods goods = goodsService.getOne(item.getGoodsId());
+        model.addAttribute("goods", goods);
+        model.addAttribute("item", item);
+        return "orders/comment";
+    }
+
+    @PostMapping("/comment")
+    public String comment(Comment comment) {
+        commentService.create(comment);
+        return "redirect:/ordersList";
     }
 }

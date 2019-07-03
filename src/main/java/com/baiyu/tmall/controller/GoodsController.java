@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class GoodsController {
-    @Autowired
+    @Autowired(required = false)
     private GoodsService goodsService;
 
     @GetMapping("/goods/{id}")

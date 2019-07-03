@@ -15,6 +15,7 @@ public class Orders {
     private String comment;
     private int price;
     private int status;
+    private int isDelete;
     private String payTime;
     private String statusTime;
     private String createTime;

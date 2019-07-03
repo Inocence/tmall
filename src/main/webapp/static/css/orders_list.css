@@ -20,8 +20,29 @@ table tr td{
     text-align: center;
     vertical-align:middle;
 }
-.order_number{
+.first_col{
     text-align: left;
+    width: 20%;
+}
+.second_col{
+    text-align: left;
+    width: 30%;
+}
+.third_col{
+    text-align: left;
+    width: 10%;
+}
+.four_col{
+    text-align: left;
+    width: 10%;
+}
+.five_col{
+    text-align: left;
+    width: 10%;
+}
+.six_col{
+    text-align: left;
+    width: 20%;
 }
 .table_img{
     width: 80px;

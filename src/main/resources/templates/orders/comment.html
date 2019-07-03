@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{::link},~{})">
+    <title th:text="${goods.getName()}"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/detail.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/top_search.css}" />
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">-->
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+
+        <!--搜索-->
+        <div th:include="template/include::search" class="search"></div>
+
+        <!--内容主体-->
+        <div class="content">
+            <!--顶部图片-->
+            <div class="top_img">
+                <img th:src="@{/static/img/detail_top.jpg}"/>
+            </div>
+            <!--具体参数-->
+            <div class="param">
+                <!--左侧大图-->
+                <div class="param_left">
+                    <img th:src="${goods.getCover()}"/>
+                </div>
+                <!--右侧价格-->
+                <form id="submitForm" class="param_right" action="/cart" method="post" >
+                    <input type="hidden" name="goodsId" th:value="${goods.getGoodsId()}" />
+                    <ul>
+                        <li class="common_li"><span class="param_right_top_title" th:text="${goods.getName()}"></span></li>
+                        <li class="common_li"><span class="left_span">价格</span><span class="right_span right_span_price" th:text="'￥' + ${goods.getPrice()}"></span></li>
+                        <li class="common_li"><span class="left_span">数量</span><input class="right_span right_input" type="text" name="num" value="1" /></li>
+                        <li class="common_li"><span class="left_span"></span><input class="right_span btn btn-danger" id="submitBtn" type="button" value="加入购物车"/></li>
+                        <li><span class="left_span">配送范围</span><span  class="right_span right_send">送货范围仅限广元、自贡、阿坝、雅安、南充、巴中、眉山、攀枝花、资阳、遂宁、宜宾、内江、乐山、泸州、广安、甘孜、绵阳、德阳、达州、成都、凉山地区(生鲜类别仅限部分地区)</span></li>
+                    </ul>
+                </form>
+                <!--底部多图-->
+                <div class="param_bot">
+                    <div class="param_bot_img" th:each="i : ${goods.getImgList()}">
+                        <img th:src="@{${i}}" />
+                    </div>
+                </div>
+            </div>
+            <!--商品详情-->
+            <div class="detail">
+                <!-- 选项卡菜单-->
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#bulletin" role="tab" data-toggle="tab">评价</a></li>
+                </ul>
+                <!-- 选项卡面板 -->
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active" id="bulletin">
+                        <form role="form" action="/comment" method="post">
+                            <input type="hidden" name="ordersId" th:value="${item.getOrdersId()}"  />
+                            <input type="hidden" name="goodsId" th:value="${item.getGoodsId()}"  />
+                            <input type="hidden" name="itemId" th:value="${item.getItemId()}"  />
+                            <div class="form-group">
+                                <label for="content">评价内容</label>
+                                <textarea class="form-control" name="content" id="content" rows="5" placeholder="请输入评价内容">
+                                </textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default">提交</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+<script>
+    $(function () {
+        $('#submitBtn').on('click', function(){
+            var AjaxURL= "/cart";
+            $.ajax({
+                type: "POST",
+                url: AjaxURL,
+                data: $('#submitForm').serialize(),
+                success: function (data) {
+                    alert(data.msg);
+                },
+                error: function(data) {
+                    alert(data.msg);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>
