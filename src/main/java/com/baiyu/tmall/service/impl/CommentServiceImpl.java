@@ -11,6 +11,8 @@ import com.baiyu.tmall.util.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -54,5 +56,10 @@ public class CommentServiceImpl implements CommentService {
             orders.setStatusTime(Tool.timeFormat());
             ordersMapper.update(orders);
         }
+    }
+
+    @Override
+    public List<Comment> getSearch(Comment comment) {
+        return commentMapper.getSearch(comment);
     }
 }

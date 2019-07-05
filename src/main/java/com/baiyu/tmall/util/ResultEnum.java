@@ -4,11 +4,9 @@ public enum ResultEnum {
 
     SUCCESS("0", "成功"),
     ERROR("1", "失败"),
-
-    WAIT("1111", "正在处理结果");
+    EXPIRE("2", "登陆失效");
 
     private String code;
-
     private String msg;
 
     ResultEnum(String code, String msg) {

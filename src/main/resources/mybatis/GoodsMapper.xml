@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baiyu.tmall.mapper.GoodsMapper">
     <select id="getOne" resultType="Goods">
-            SELECT * FROM goods WHERE goods_id = #{goods_id};
+            SELECT * FROM goods WHERE goods_id = #{goodId};
     </select>
     <select id="getList" resultType="Goods">
             SELECT * FROM goods;

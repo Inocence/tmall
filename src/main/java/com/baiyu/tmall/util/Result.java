@@ -30,45 +30,21 @@ public class Result<T> {
     }
 
     /**
-     * 根据返回的状态对象， 构建返回结果
-     * @param resultEnum
-     * @param <T>
+     * 过期时调用
      * @return
      */
-    public static <T> Result<T> build(ResultEnum resultEnum) {
-        return new Result<>(resultEnum);
-    }
-
-    /**
-     * 根据 code， 和  msg 构建返回结果
-     * @param code
-     * @param msg
-     * @param <T>
-     * @return
-     */
-    public static <T> Result<T> build(String code, String msg) {
-        return new Result<T>(code, msg);
-    }
-
-    /**
-     * 根据 code， 和  msg, 和 data 构建返回结果
-     * @param code
-     * @param msg
-     * @param <T>
-     * @return
-     */
-    public static <T> Result<T> build(String code, String msg, T data) {
-        return new Result<T>(code, msg, data);
+    public static Result expire() {
+        return new Result<>(ResultEnum.EXPIRE);
     }
 
     /**
      * 失败的调用
-     * @param codeMsg
+     * @param msg
      * @param <T>
      * @return
      */
-    public static <T> Result<T> error(String codeMsg) {
-        return new Result<>(codeMsg);
+    public static <T> Result<T> error(String msg) {
+        return new Result<>(msg);
     }
 
     /**
@@ -107,5 +83,40 @@ public class Result<T> {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+
+
+
+
+    /**
+     * 根据返回的状态对象， 构建返回结果
+     * @param resultEnum
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<T> build(ResultEnum resultEnum) {
+        return new Result<>(resultEnum);
+    }
+
+    /**
+     * 根据 code， 和  msg 构建返回结果
+     * @param code
+     * @param msg
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<T> build(String code, String msg) {
+        return new Result<T>(code, msg);
+    }
+
+    /**
+     * 根据 code， 和  msg, 和 data 构建返回结果
+     * @param code
+     * @param msg
+     * @param <T>
+     * @return
+     */
+    public static <T> Result<T> build(String code, String msg, T data) {
+        return new Result<T>(code, msg, data);
     }
 }

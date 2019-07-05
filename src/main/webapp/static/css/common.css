@@ -8,6 +8,9 @@ ul{
 .site, .footer{
     width: 100%;
 }
+.sub-site{
+    min-height: 620px;
+}
 
 
 

@@ -52,13 +52,23 @@
                 <ul id="myTab" class="nav nav-tabs" role="tablist">
                     <li class="active"><a href="#bulletin" role="tab" data-toggle="tab">商品详情</a></li>
                     <li><a href="#rule" role="tab" data-toggle="tab">累计评价</a></li>
-                    <li><a href="#forum" role="tab" data-toggle="tab">售后服务</a></li>
                 </ul>
                 <!-- 选项卡面板 -->
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active" id="bulletin" th:utext="${goods.getContent()}"></div>
-                    <div class="tab-pane " id="rule">规则内容面板</div>
-                    <div class="tab-pane " id="forum">论坛内容面板</div>
+                    <div class="tab-pane " id="rule">
+                        <div class="comment" th:each="p : ${comments}">
+                            <div class="comment_top">
+                                <div class="head_pic"><img th:src="@{/static/img/goods10.jpg}" /></div>
+                                <div class="name_div">
+                                    <div class="name_real">忆水寒的清浅拾光</div>
+                                    <div class="date" th:text="${p.getCreateTime()}"></div>
+                                </div>
+                            </div>
+                            <div style="clear: both"></div>
+                            <div class="comment_bot" th:text="${p.getContent()}"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,7 +85,11 @@
                 url: AjaxURL,
                 data: $('#submitForm').serialize(),
                 success: function (data) {
-                    alert(data.msg);
+                    if(data.code == 2) {
+                        window.location.replace("/login");
+                    } else {
+                        alert(data.msg)
+                    }
                 },
                 error: function(data) {
                     alert(data.msg);

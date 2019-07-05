@@ -1,7 +1,9 @@
 package com.baiyu.tmall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
+
 
 @Data
 @ToString

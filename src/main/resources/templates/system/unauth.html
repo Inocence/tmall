@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{},~{::style})">
+    <title>无权访问</title>
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">-->
+    <style>
+        .content{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+        <!--内容主体-->
+        <div class="content">
+            <h3 class="word">无权访问该页面</h3>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+</body>
+</html>

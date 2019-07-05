@@ -56,7 +56,7 @@
                                 <tr th:each="o : ${p.getItem()}">
                                     <td class="first_col">
                                         <div class="table_img">
-                                            <img th:src="${o.getGoods().getCover()}" />
+                                            <a th:href="${'/goods/' + o.getGoodsId()}"><img th:src="${o.getGoods().getCover()}" /></a>
                                         </div>
                                     </td>
                                     <td class="second_col">

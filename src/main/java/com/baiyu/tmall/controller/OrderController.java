@@ -8,6 +8,7 @@ import com.baiyu.tmall.service.*;
 import com.baiyu.tmall.util.Result;
 import com.baiyu.tmall.util.Tool;
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
