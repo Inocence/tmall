@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head th:fragment="top(title,links,styles)">
     <title th:replace="${title}">Tmall</title>
     <meta charset="UTF-8">
@@ -15,7 +15,12 @@
 </head>
 <div th:fragment="header">
     <div class="header_left">
-        <ul class="float_ul"><li><a th:href="@{/}">首页</a></li><li>欢迎</li><li><a href="#">请登录</a></li><li><a href="#">免费注册</a></li></ul>
+        <ul class="float_ul">
+            <li><a th:href="@{/}">首页</a></li>
+            <li shiro:authenticated="">欢迎，<shiro:principal property="username" />&nbsp;<a th:href="@{/logout}">退出</a></li>
+            <li shiro:guest=""><a th:href="@{/login}">请登录</a></li>
+            <li shiro:guest=""><a th:href="@{/register}">免费注册</a></li>
+        </ul>
     </div>
     <div class="header_right">
         <ul>

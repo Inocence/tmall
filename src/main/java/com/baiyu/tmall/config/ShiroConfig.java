@@ -1,5 +1,6 @@
 package com.baiyu.tmall.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.baiyu.tmall.secure.AuthLoginFilter;
 import com.baiyu.tmall.secure.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -61,5 +62,9 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
+    }
 
 }
