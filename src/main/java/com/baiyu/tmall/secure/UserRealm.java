@@ -18,7 +18,7 @@ import java.util.Set;
 @Slf4j
 public class UserRealm extends AuthorizingRealm {
 
-    @Value("tmall.encrypt")
+    @Value("${tmall.encrypt}")
     private String encrypt;
 
     @Autowired
@@ -36,6 +36,7 @@ public class UserRealm extends AuthorizingRealm {
         }
 
         log.info("doGetAuthenticationInfo");
+        log.info(user.toString());
         return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(encrypt), getName());
     }
 

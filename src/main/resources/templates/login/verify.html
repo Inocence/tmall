@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="template/include::top(~{::title},~{::link},~{})">
+    <title>立即登陆</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/login.css}" />
+</head>
+<body>
+
+<div class="site">
+    <!--顶部-->
+    <div th:include="template/include::header" class="header"></div>
+    <div class="sub-site">
+        <span th:text="${message}"></span>
+        </div>
+    </div>
+    <!--底部-->
+    <div th:replace="template/include::footer"></div>
+</div>
+<script>
+    $(function () {
+        $('#submitBtn').on('click', function(){
+            var AjaxURL= "/cart";
+            $.ajax({
+                type: "POST",
+                url: AjaxURL,
+                data: $('#submitForm').serialize(),
+                success: function (data) {
+                    alert(data.msg);
+                },
+                error: function(data) {
+                    alert(data.msg);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

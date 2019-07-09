@@ -10,12 +10,15 @@ import com.baiyu.tmall.pojo.item.SearchCatesItem;
 import com.baiyu.tmall.pojo.item.SearchGoodsItem;
 import com.baiyu.tmall.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@CacheConfig(cacheNames = "goods")
 public class GoodsServiceImpl implements GoodsService {
     @Autowired(required = false)
     private GoodsMapper goodsMapper;
@@ -23,6 +26,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired(required = false)
     private CateMapper cateMapper;
 
+    @Cacheable(key = "'goods_' + #p0")
     @Override
     public Goods getOne(int id) {
         Goods goods = goodsMapper.getOne(id);

@@ -9,6 +9,9 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     void insert(User user);
+    void update(User user);
     User getByName(String username);
+    User getByEmail(String email);
+    User getByVerify(String verify);
     List<User> getSearch(User user);
 }

@@ -57,6 +57,10 @@ public class Result<T> {
         return new Result<>(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMsg(), data);
     }
 
+    public static <T> Result<T> error(T data, String msg) {
+        return new Result<>(ResultEnum.ERROR.getCode(), msg, data);
+    }
+
     private Result(T data) {
         this.code = ResultEnum.SUCCESS.getCode();
         this.msg = ResultEnum.SUCCESS.getMsg();
