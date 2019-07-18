@@ -1,9 +1,7 @@
 package com.baiyu.tmall.mapper;
 
 import com.baiyu.tmall.pojo.Cart;
-import com.baiyu.tmall.pojo.Cate;
-import com.baiyu.tmall.pojo.item.SearchCartItem;
-import com.baiyu.tmall.pojo.item.SearchCatesItem;
+import com.baiyu.tmall.pojo.vo.CartVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,5 +12,5 @@ public interface CartMapper {
     void insert(Cart cart);
     void delete(Cart cart);
     void update(Cart cart);
-    List<Cart> getSearch(SearchCartItem sci);
+    List<Cart> getSearch(CartVo sci);
 }

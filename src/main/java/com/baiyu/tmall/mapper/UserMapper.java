@@ -1,7 +1,6 @@
 package com.baiyu.tmall.mapper;
 
 import com.baiyu.tmall.pojo.User;
-import com.baiyu.tmall.pojo.item.SearchUserItem;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

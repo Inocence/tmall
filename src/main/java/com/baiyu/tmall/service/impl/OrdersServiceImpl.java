@@ -7,10 +7,10 @@ import com.baiyu.tmall.pojo.Cart;
 import com.baiyu.tmall.pojo.Goods;
 import com.baiyu.tmall.pojo.Item;
 import com.baiyu.tmall.pojo.Orders;
-import com.baiyu.tmall.pojo.item.SearchCartItem;
-import com.baiyu.tmall.pojo.item.SearchGoodsItem;
-import com.baiyu.tmall.pojo.item.SearchItemItem;
-import com.baiyu.tmall.pojo.item.SearchOrdersItem;
+import com.baiyu.tmall.pojo.vo.CartVo;
+import com.baiyu.tmall.pojo.vo.GoodsVo;
+import com.baiyu.tmall.pojo.vo.ItemVo;
+import com.baiyu.tmall.pojo.vo.OrdersVo;
 import com.baiyu.tmall.service.CartService;
 import com.baiyu.tmall.service.ItemService;
 import com.baiyu.tmall.service.OrdersService;
@@ -53,7 +53,7 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public int orders(SearchCartItem sci) {
+    public int orders(CartVo sci) {
         List<Integer> cartIds = sci.getCarts().stream().map(Cart::getCartId).collect(Collectors.toList());
         sci.setCartIds(cartIds);
         List<Cart> carts = cartService.getSearch(sci);
@@ -91,8 +91,8 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public List<SearchOrdersItem> getList(Orders orders) {
-        List<SearchOrdersItem> soiList = new ArrayList<>();
+    public List<OrdersVo> getList(Orders orders) {
+        List<OrdersVo> soiList = new ArrayList<>();
         //获取订单列表
         List<Orders> ordersList = ordersMapper.getSearch(orders);
         if(ordersList.size() == 0) {
@@ -102,14 +102,14 @@ public class OrdersServiceImpl implements OrdersService {
         Map<Integer, List<Orders>> ordersMap = ordersList.stream().collect(Collectors.groupingBy(Orders::getOrdersId));
 
         //获取item列表
-        SearchItemItem sii = new SearchItemItem();
+        ItemVo sii = new ItemVo();
         sii.setOrdersIds(ordersIds);
         List<Item> items = itemMapper.getSearch(sii);
         Map<Integer, List<Item>> itemMap = items.stream().collect(Collectors.groupingBy(Item::getOrdersId));
 
         //获取商品列表
         List<Integer> goodsIds = items.stream().map(Item::getGoodsId).collect(Collectors.toList());
-        SearchGoodsItem sgi = new SearchGoodsItem();
+        GoodsVo sgi = new GoodsVo();
         sgi.setGoodsIds(goodsIds);
         List<Goods> goodsList = goodsMapper.getSearch(sgi);
 
@@ -123,7 +123,7 @@ public class OrdersServiceImpl implements OrdersService {
 
         //组装item数据
         for (Orders orders1 : ordersList) {
-            SearchOrdersItem soi = new SearchOrdersItem();
+            OrdersVo soi = new OrdersVo();
             soi.setOrders(orders1);
             if(itemMap.containsKey(orders1.getOrdersId())) {
                 soi.setItem(itemMap.get(orders1.getOrdersId()));

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Tool {
+
     /**
      * 获取当前时间字符串
      * @return

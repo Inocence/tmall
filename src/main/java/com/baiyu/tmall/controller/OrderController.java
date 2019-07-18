@@ -1,23 +1,19 @@
 package com.baiyu.tmall.controller;
 
-import com.baiyu.tmall.mapper.ItemMapper;
 import com.baiyu.tmall.pojo.*;
-import com.baiyu.tmall.pojo.item.SearchCartItem;
-import com.baiyu.tmall.pojo.item.SearchOrdersItem;
+import com.baiyu.tmall.pojo.vo.CartVo;
+import com.baiyu.tmall.pojo.vo.OrdersVo;
 import com.baiyu.tmall.service.*;
 import com.baiyu.tmall.util.Result;
 import com.baiyu.tmall.util.Tool;
 import org.apache.ibatis.annotations.Param;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class OrderController {
@@ -62,7 +58,7 @@ public class OrderController {
 
     @GetMapping("/book")
     public String book(@Param("cartIds") String cartIds, Model model) {
-        SearchCartItem sci = new SearchCartItem();
+        CartVo sci = new CartVo();
         String[] cartStrIds = cartIds.split(",");
 
         List<Integer> cartIntIds = new ArrayList<>();
@@ -86,7 +82,7 @@ public class OrderController {
     }
 
     @PostMapping("/book")
-    public String book(SearchCartItem sci) {
+    public String book(CartVo sci) {
         StringBuffer str = new StringBuffer();
         for (Cart cart : sci.getCarts()) {
             cartService.update(cart);
@@ -97,7 +93,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public String orders(SearchCartItem sci) {
+    public String orders(CartVo sci) {
         int ordersId = ordersService.orders(sci);
         return "redirect:/orders/" + ordersId;
     }
@@ -136,15 +132,15 @@ public class OrderController {
     public String list(Model model) {
         Orders all = new Orders();
         //all.setStatus(1);
-        List<SearchOrdersItem> allList = ordersService.getList(all);
+        List<OrdersVo> allList = ordersService.getList(all);
 
         Orders unpay = new Orders();
         unpay.setStatus(1);
-        List<SearchOrdersItem> unpayList = ordersService.getList(unpay);
+        List<OrdersVo> unpayList = ordersService.getList(unpay);
 
         Orders uncomment = new Orders();
         uncomment.setStatus(2);
-        List<SearchOrdersItem> uncommentList = ordersService.getList(uncomment);
+        List<OrdersVo> uncommentList = ordersService.getList(uncomment);
 
         model.addAttribute("all", allList);
         model.addAttribute("unpay", unpayList);

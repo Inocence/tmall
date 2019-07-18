@@ -4,17 +4,19 @@ import com.baiyu.tmall.pojo.Banner;
 import com.baiyu.tmall.pojo.Cate;
 import com.baiyu.tmall.pojo.Goods;
 import com.baiyu.tmall.pojo.GoodsIndex;
-import com.baiyu.tmall.pojo.item.SearchCatesItem;
-import com.baiyu.tmall.pojo.item.SearchGoodsItem;
+import com.baiyu.tmall.pojo.vo.GoodsVo;
 import com.baiyu.tmall.service.BannerService;
 import com.baiyu.tmall.service.CateService;
 import com.baiyu.tmall.service.GoodsService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -46,8 +48,14 @@ public class IndexController {
     }
 
     @RequestMapping("/search")
-    public String Search(Model model, @Param("keyword") String keyword, @Param("cateId") String cateId) {
-        SearchGoodsItem sgi = new SearchGoodsItem();
+    public String Search(
+            Model model,
+            @Param("keyword") String keyword,
+            @Param("cateId") String cateId,
+            @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+            @RequestParam(defaultValue = "10", value = "pageSize") Integer pageSize
+            ) {
+        GoodsVo sgi = new GoodsVo();
         if(keyword!=null) {
             sgi.setName(keyword);
         }
@@ -55,9 +63,8 @@ public class IndexController {
             sgi.setCateId(Integer.parseInt(cateId));
         }
 
-        List<Goods> goods = goodsService.getSearch(sgi);
-        model.addAttribute("search", goods);
-
+        Page<Goods> search = goodsService.getEsSearch(sgi);
+        model.addAttribute("search", search);
         return "index/search";
     }
 }

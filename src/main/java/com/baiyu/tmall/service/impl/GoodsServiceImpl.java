@@ -1,17 +1,21 @@
 package com.baiyu.tmall.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baiyu.tmall.dao.GoodsDAO;
 import com.baiyu.tmall.mapper.CateMapper;
 import com.baiyu.tmall.mapper.GoodsMapper;
 import com.baiyu.tmall.pojo.Cate;
 import com.baiyu.tmall.pojo.Goods;
 import com.baiyu.tmall.pojo.GoodsIndex;
-import com.baiyu.tmall.pojo.item.SearchCatesItem;
-import com.baiyu.tmall.pojo.item.SearchGoodsItem;
+import com.baiyu.tmall.pojo.vo.CateVo;
+import com.baiyu.tmall.pojo.vo.GoodsVo;
 import com.baiyu.tmall.service.GoodsService;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -25,6 +29,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired(required = false)
     private CateMapper cateMapper;
+
+    @Autowired(required = false)
+    private GoodsDAO goodsDAO;
 
     @Cacheable(key = "'goods_' + #p0")
     @Override
@@ -40,18 +47,28 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> getSearch(SearchGoodsItem igi){
+    public List<Goods> getSearch(GoodsVo igi){
         return goodsMapper.getSearch(igi);
     }
 
     @Override
+    public Page<Goods> getEsSearch(GoodsVo igi) {
+        NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder();
+        builder.withQuery(QueryBuilders.wildcardQuery("name", "*" + igi.getName() + "*"));
+
+        Page<Goods> page = goodsDAO.search(builder.build());
+        return page;
+    }
+
+
+    @Override
     public List<GoodsIndex> getIndexList(List<Integer> cateIds){
         List<GoodsIndex> goodsIndexs = new ArrayList<>();
-        SearchGoodsItem sgi = new SearchGoodsItem();
+        GoodsVo sgi = new GoodsVo();
         sgi.setTotal(10);
 
         //查询分类名字
-        SearchCatesItem sci = new SearchCatesItem();
+        CateVo sci = new CateVo();
         sci.setCateIds(cateIds);
         List<Cate> cates = cateMapper.getSearch(sci);
         Map<Integer, List<Cate>> catesMap = cates.stream().collect(Collectors.groupingBy(Cate::getCateId));
@@ -77,4 +94,5 @@ public class GoodsServiceImpl implements GoodsService {
         }
         return goodsIndexs;
     }
+
 }

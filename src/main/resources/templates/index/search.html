@@ -15,16 +15,37 @@
         <!--内容主体-->
         <div class="content container">
             <div class="goods row">
-                <a th:href="@{'/goods/' + ${s.getGoodsId()}}" th:each="s : ${search}">
+                <a th:href="@{'/goods/' + ${s.getGoodsId()}}" th:each="s : ${search.getContent()}">
                     <div class="good col-lg-2 col-md-2">
-                        <div class="good_img"><img th:src="${s.getCover()}" /></div>
-                        <div class="good_title" th:text="${s.getName()}"></div>
-                        <div class="good_price" th:text="'￥' + ${s.getPrice()}"></div>
+                        <div class="good_inner">
+                            <div class="good_img"><img th:src="${s.getCover()}" /></div>
+                            <div class="good_title" th:text="${s.getName()}"></div>
+                            <div class="good_price" th:text="'￥' + ${s.getPrice()}"></div>
+                        </div>
                     </div>
                 </a>
 
             </div>
             <div class="clear"></div>
+            <nav aria-label="Page navigation" style="text-align: center">
+                <ul class="pagination">
+                    <li>
+                        <a th:href="@{/search}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     <!--底部-->

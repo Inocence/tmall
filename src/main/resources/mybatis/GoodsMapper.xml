@@ -26,8 +26,5 @@
                 </if>
 
             </where>
-            <if test="total!=0">
-                LIMIT #{total}
-            </if>
     </select>
 </mapper>
