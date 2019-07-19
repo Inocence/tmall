@@ -12,6 +12,9 @@ PC端商城系统包含首页门户、商品推荐、商品搜索、商品展示
 #### 用户端商城系统
 
 用户端项目`mall`地址：https://github.com/Inocence/tmall
+![商城系统首页功能演示.gif](/doc/resource/index.png)
+![商城系统购物车功能演示.gif](/doc/resource/card.png)
+![商城系统订单功能演示.gif](/doc/resource/order.png)
 
 ### 技术选型
 
