@@ -13,6 +13,8 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +54,7 @@ public class IndexController {
             Model model,
             @Param("keyword") String keyword,
             @Param("cateId") String cateId,
-            @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum,
+            @RequestParam(defaultValue = "0", value = "pageNum") Integer pageNum,
             @RequestParam(defaultValue = "10", value = "pageSize") Integer pageSize
             ) {
         GoodsVo sgi = new GoodsVo();
@@ -63,7 +65,8 @@ public class IndexController {
             sgi.setCateId(Integer.parseInt(cateId));
         }
 
-        Page<Goods> search = goodsService.getEsSearch(sgi);
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Page<Goods> search = goodsService.getEsSearch(sgi, pageable);
         model.addAttribute("search", search);
         return "index/search";
     }

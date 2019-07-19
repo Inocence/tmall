@@ -14,8 +14,11 @@ import java.util.List;
 public class Goods {
     @Id
     private int goodsId;
+    private int goods_id;
     private int storeId;
+    private int store_id;
     private int cateId;
+    private int cate_id;
     private String name;
     private String content;
     private Integer price;
@@ -27,4 +30,16 @@ public class Goods {
     private int updateAt;
 
     private Cate cate;
+
+    public int getGoodsId() {
+        return goodsId == 0 ? goods_id : goodsId;
+    }
+
+    public int getCateId() {
+        return cateId == 0 ? cate_id : cateId;
+    }
+
+    public int getStoreId() {
+        return storeId == 0 ? store_id : storeId;
+    }
 }

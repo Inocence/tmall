@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
@@ -52,11 +53,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Page<Goods> getEsSearch(GoodsVo igi) {
+    public Page<Goods> getEsSearch(GoodsVo igi, Pageable pageable) {
         NativeSearchQueryBuilder builder = new NativeSearchQueryBuilder();
-        builder.withQuery(QueryBuilders.wildcardQuery("name", "*" + igi.getName() + "*"));
+        builder.withQuery(QueryBuilders.wildcardQuery("name.keyword", "*" + igi.getName() + "*"))
+                .withPageable(pageable);
 
         Page<Goods> page = goodsDAO.search(builder.build());
+        System.out.println(page.getContent());
         return page;
     }
 
