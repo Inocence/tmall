@@ -84,6 +84,6 @@ nginx | 1.10 | http://nginx.org/en/download.html
 
 ## 许可证
 
-[Apache License 2.0](https://github.com/Inocence/tmall/LICENSE)
+[Apache License 2.0](https://github.com/Inocence/tmall/blob/master/LICENSE)
 
 Copyright (c) 2018-2019 baiyu
